@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiFi Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      color: black;
+    }
+    .navbar {
+      background-color: red;
+      padding: 10px;
+      color: white;
+      text-align: center;
+    }
+    .content {
+      text-align: center;
+      padding: 20px;
+    }
+    .qr-code {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .generate-btn {
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .generate-btn:hover {
+      background-color: darkgreen;
+    }
+    .password {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .timer {
+      margin-top: 10px;
+      font-size: 16px;
+      color: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1>WiFi Services</h1>
+  </div>
+
+  <div class="content">
+    <p>Welcome to the WiFi Services page. Your WiFi QR code and password will refresh every minute.</p>
+
+    <!-- Timer Display -->
+    <div class="timer" id="timerContainer" style="font-weight: bold; color: red;">
+      Next password generation in: <span id="timer">60</span> seconds
+    </div>
+
+    <div class="qr-code" id="qrCodeContainer">
+      <!-- QR Code will be displayed here -->
+    </div>
+
+    <div class="password" id="passwordContainer">
+      <!-- Password will be displayed here -->
+    </div>
+  </div>
+
+  <!-- Add QRCode.js library from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    let countdown = 60;
+
+    // Function to generate a random password
+    function generateRandomPassword(length) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let password = '';
+      for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return password;
+    }
+
+    // Function to generate the QR code and password
+    function generateQRCode() {
+      const wifiName = 'Bangladesh_Railway_WiFi';
+      const password = generateRandomPassword(10);
+      const encryption = 'WPA'; // WPA, WPA2, or WEP
+
+      const wifiInfo = `WIFI:S:${wifiName};T:${encryption};P:${password};;`;
+
+      // Clear previous QR code if any
+      document.getElementById('qrCodeContainer').innerHTML = '';
+
+      // Generate the new QR code
+      new QRCode(document.getElementById('qrCodeContainer'), wifiInfo);
+
+      // Display the generated password
+      document.getElementById('passwordContainer').innerHTML = `Password: ${password}`;
+    }
+
+    // Function to start a 60-second countdown timer
+    function startTimer() {
+      countdown = 60;
+      const timerElement = document.getElementById('timer');
+
+      const interval = setInterval(function() {
+        countdown--;
+        timerElement.innerText = countdown;
+
+        // When the countdown reaches 0, generate a new QR code and reset the timer
+        if (countdown <= 0) {
+          generateQRCode();
+          countdown = 60; // Reset timer to 60 seconds
+        }
+      }, 1000); // Decrease the counter every 1 second
+    }
+
+    // Initial QR code generation and start the timer
+    generateQRCode();
+    startTimer();
+  </script>
+
+</body>
+</html>

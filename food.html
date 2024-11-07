@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Ordering - Bangladesh Railway</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      color: black;
+    }
+    .navbar {
+      background-color: red;
+      padding: 10px;
+      color: white;
+      text-align: center;
+    }
+    .content {
+      text-align: center;
+      padding: 20px;
+    }
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .menu-item {
+      background-color: #f7f7f7;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .menu-item img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .menu-item h3 {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    .menu-item button {
+      background-color: red;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .menu-item button:hover {
+      background-color: darkred;
+    }
+    .train-seat {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .train-seat input {
+      padding: 5px;
+      width: 100px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .order-container {
+      margin-top: 20px;
+    }
+    .order-button {
+      background-color: green;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .order-button:hover {
+      background-color: darkgreen;
+    }
+    .notification {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      width: 300px;
+      text-align: center;
+      transition: bottom 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      opacity: 0;
+    }
+    .notification.show {
+      bottom: 20px;
+      opacity: 1;
+    }
+    .seat-inputs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Food Ordering - Bangladesh Railway</h1>
+  </div>
+
+  <div class="content">
+    <p>Welcome to the food ordering page. Select your favorite meal and input your seat number to place the order.</p>
+
+    <!-- Menu Items -->
+    <div class="menu-container">
+      <div class="menu-item">
+        <img src="https://cdn.pixabay.com/photo/2016/10/23/09/37/fried-rice-1762493_960_720.jpg" alt="Rice Meal">
+        <h3>Rice Meal</h3>
+        <p>Price: 150 BDT</p>
+        <button onclick="addItemToOrder('Rice Meal', 150)">Add to Order</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://cdn.pixabay.com/photo/2016/07/22/05/07/delicious-1534207_960_720.jpg" alt="Chicken Curry">
+        <h3>Chicken Curry</h3>
+        <p>Price: 180 BDT</p>
+        <button onclick="addItemToOrder('Chicken Curry', 180)">Add to Order</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://cdn.pixabay.com/photo/2023/09/25/07/55/salad-8274421_960_720.jpg" alt="Vegetable Dish">
+        <h3>Vegetable Dish</h3>
+        <p>Price: 120 BDT</p>
+        <button onclick="addItemToOrder('Vegetable Dish', 120)">Add to Order</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://cdn.pixabay.com/photo/2024/06/27/06/11/appetizer-8856378_1280.jpg" alt="Samosa">
+        <h3>Samosa</h3>
+        <p>Price: 50 BDT</p>
+        <button onclick="addItemToOrder('Samosa', 50)">Add to Order</button>
+      </div>
+    </div>
+
+    <!-- Train Seat Selection -->
+    <div class="train-seat">
+      <h3>Your Seat Number</h3>
+      <div class="seat-inputs">
+        <select id="carriage" name="carriage">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+        </select>
+        <input type="text" id="seatNumber" placeholder="Enter seat number">
+      </div>
+    </div>
+
+    <!-- Order Container -->
+    <div class="order-container" id="orderContainer">
+      <h3>Your Order</h3>
+      <ul id="orderList"></ul>
+      <button class="order-button" onclick="placeOrder()">Place Order</button>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      Order placed successfully!
+    </div>
+  </div>
+
+  <script>
+    let order = [];
+
+    function addItemToOrder(itemName, itemPrice) {
+      order.push({ name: itemName, price: itemPrice });
+      displayOrder();
+    }
+
+    function displayOrder() {
+      const orderList = document.getElementById('orderList');
+      orderList.innerHTML = '';
+      order.forEach((item, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${item.name} - ${item.price} BDT`;
+        orderList.appendChild(listItem);
+      });
+    }
+
+    function placeOrder() {
+      const seatNumber = document.getElementById('seatNumber').value;
+      const carriage = document.getElementById('carriage').value;
+
+      if (!seatNumber) {
+        alert('Please enter your seat number!');
+        return;
+      }
+      if (order.length === 0) {
+        alert('Your order is empty!');
+        return;
+      }
+
+      // Confirm popup
+      const confirmation = confirm(`Confirm your order?\nCarriage: ${carriage}\nSeat: ${seatNumber}`);
+      if (!confirmation) {
+        return; // If the user cancels, stop the function
+      }
+
+      // Show notification
+      const notification = document.getElementById('notification');
+      notification.classList.add('show');
+
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+
+      // Reset order and form
+      order = [];
+      displayOrder();
+      document.getElementById('seatNumber').value = '';
+    }
+  </script>
+
+</body>
+</html>

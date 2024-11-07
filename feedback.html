@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      color: black;
+    }
+    .navbar {
+      background-color: red;
+      padding: 10px;
+      color: white;
+      text-align: center;
+    }
+    .content {
+      text-align: center;
+      padding: 20px;
+    }
+    .feedback-form {
+      background-color: red;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .feedback-form input,
+    .feedback-form textarea,
+    .feedback-form select {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+    }
+    .feedback-form input[type="submit"] {
+      background-color: darkred;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .feedback-form input[type="submit"]:hover {
+      background-color: red;
+    }
+    .star-rating {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .star-rating input {
+      display: none;
+    }
+    .star-rating label {
+      color: lightgray;
+      font-size: 30px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .star-rating input:checked ~ label {
+      color: gold;
+    }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: gold;
+    }
+    .notification {
+      display: none;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: green;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Feedback</h1>
+  </div>
+
+  <div class="content">
+    <p>Welcome to the Feedback page. Please provide your feedback below.</p>
+
+    <div class="feedback-form">
+      <form id="feedbackForm" onsubmit="submitForm(event)">
+        <div class="star-rating">
+          <input type="radio" id="star5" name="rating" value="5">
+          <label for="star5" title="5 stars">★</label>
+          <input type="radio" id="star4" name="rating" value="4">
+          <label for="star4" title="4 stars">★</label>
+          <input type="radio" id="star3" name="rating" value="3">
+          <label for="star3" title="3 stars">★</label>
+          <input type="radio" id="star2" name="rating" value="2">
+          <label for="star2" title="2 stars">★</label>
+          <input type="radio" id="star1" name="rating" value="1">
+          <label for="star1" title="1 star">★</label>
+        </div>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="feedback" rows="4" placeholder="Your Feedback" required></textarea>
+        <input type="submit" value="Submit Feedback">
+      </form>
+      <div class="notification" id="notification">
+        Feedback submitted successfully!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Show notification
+      document.getElementById('notification').style.display = 'block';
+
+      // Optionally, reset the form
+      document.getElementById('feedbackForm').reset();
+
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        document.getElementById('notification').style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

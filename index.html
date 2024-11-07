@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bangladesh Railway Service</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      color: black;
+    }
+    .navbar {
+      background-color: red;
+      padding: 10px;
+      color: white;
+      text-align: center;
+    }
+    .swiper-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+      overflow: hidden;
+      border-radius: 15px; /* Rounded corners for the card */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .swiper-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px; /* Rounded corners for the image */
+      object-fit: cover;
+    }
+    .grid-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px;
+      gap: 15px;
+    }
+    .grid-item {
+      background-color: red;
+      color: white;
+      padding: 20px;
+      width: 120px;
+      height: 120px;
+      text-align: center;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .grid-item:hover {
+      background-color: darkred;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .grid-item img {
+      width: 50px;
+      height: 50px;
+    }
+    .grid-item span {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .search-container {
+      margin: 20px;
+      text-align: center;
+    }
+    .search-container input {
+      width: 80%;
+      padding: 10px 40px 10px 10px;
+      border: none;
+      border-radius: 25px;
+      background-color: red;
+      color: white;
+      font-size: 16px;
+      position: relative;
+    }
+    .search-container input::placeholder {
+      color: white;
+    }
+    .search-container input + .search-icon {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: white;
+    }
+    @media (min-width: 600px) {
+      .grid-item {
+        width: 120px;
+        height: 120px;
+      }
+      .search-container input {
+        width: 40%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1>Bangladesh Railway Service</h1>
+  </div>
+
+  <!-- Image Slider Card -->
+  <div class="swiper-container">
+    <img id="swiperImage" src="https://picsum.photos/800/400?random=1" alt="Railway Service Image">
+  </div>
+
+  <div class="grid-container">
+    <div class="grid-item" onclick="navigateToPage('wifi.html')">
+      <img src="https://cdn-icons-png.flaticon.com/128/3686/3686730.png" alt="WiFi Icon">
+      <span>WiFi</span>
+    </div>
+    <div class="grid-item" onclick="navigateToPage('location.html')">
+      <img src="https://cdn-icons-png.flaticon.com/128/2394/2394729.png" alt="Location Icon">
+      <span>Location</span>
+    </div>
+    <div class="grid-item" onclick="navigateToPage('food.html')">
+      <img src="https://cdn-icons-png.flaticon.com/128/1532/1532688.png" alt="Food Icon">
+      <span>Food</span>
+    </div>
+    <div class="grid-item" onclick="navigateToPage('feedback.html')">
+      <img src="https://cdn-icons-png.flaticon.com/128/2646/2646064.png" alt="Feedback Icon">
+      <span>Feedback</span>
+    </div>
+  </div>
+
+  <!-- Search Container -->
+  <div class="search-container">
+    <input type="text" id="search" placeholder="Search...">
+  </div>
+
+  <script>
+    // Basic JavaScript for image slider effect
+    const images = [
+      'https://cdn.pixabay.com/photo/2023/01/28/12/48/train-7750884_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2023/03/18/09/06/railway-7860168_1280.jpg',
+      'https://cdn.pixabay.com/photo/2020/03/26/20/57/train-4971800_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2017/06/24/23/03/railway-2439189_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2012/10/25/23/18/train-62849_960_720.jpg'
+    ];
+    let currentImageIndex = 0;
+    function autoSwipe() {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      document.getElementById('swiperImage').src = images[currentImageIndex];
+    }
+    setInterval(autoSwipe, 3000); // Automatically swipe every 3 seconds
+
+    // JavaScript to navigate to other pages
+    function navigateToPage(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>

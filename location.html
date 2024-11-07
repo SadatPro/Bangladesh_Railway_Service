@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Location Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      color: black;
+    }
+    .navbar {
+      background-color: red;
+      padding: 10px;
+      color: white;
+      text-align: center;
+    }
+    .content {
+      text-align: center;
+      padding: 20px;
+    }
+    .form-container {
+      margin-top: 20px;
+    }
+    label {
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    select {
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .map-container {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+    }
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .search-button {
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .search-button:hover {
+      background-color: darkgreen;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Location Services</h1>
+  </div>
+
+  <div class="content">
+    <p>Select Up and Down trains to see the locations.</p>
+
+    <div class="form-container">
+      <label for="up-train">Up Train:</label>
+      <select id="up-train">
+        <option value="">Select Up Train</option>
+        <option value="Padma Express">Padma Express</option>
+        <option value="Suborno Express">Suborno Express</option>
+        <option value="Silk City Express">Silk City Express</option>
+        <option value="Mohanganj Express">Mohanganj Express</option>
+        <option value="Ekota Express">Ekota Express</option>
+        <option value="Sundarban Express">Sundarban Express</option>
+      </select>
+
+      <br>
+
+      <label for="down-train">Down Train:</label>
+      <select id="down-train">
+        <option value="">Select Down Train</option>
+        <option value="Padma Express">Padma Express</option>
+        <option value="Suborno Express">Suborno Express</option>
+        <option value="Silk City Express">Silk City Express</option>
+        <option value="Mohanganj Express">Mohanganj Express</option>
+        <option value="Ekota Express">Ekota Express</option>
+        <option value="Sundarban Express">Sundarban Express</option>
+      </select>
+
+      <!-- Search Button -->
+      <br>
+      <button class="search-button" onclick="searchTrains()">Search</button>
+    </div>
+
+    <!-- Google Map Embed -->
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9021871169315!2d90.39945231498185!3d23.7509032845894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755bf60ba157f4f%3A0xdbf9b0726b68d5b2!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1694702403669!5m2!1sen!2sbd"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    function searchTrains() {
+      const upTrain = document.getElementById('up-train').value;
+      const downTrain = document.getElementById('down-train').value;
+
+      if (upTrain && downTrain) {
+        alert(`Searching locations for:\nUp Train: ${upTrain}\nDown Train: ${downTrain}`);
+        // You can add logic here to update the map or fetch data based on the train selection.
+      } else {
+        alert('Please select both Up and Down trains.');
+      }
+    }
+  </script>
+</body>
+</html>
